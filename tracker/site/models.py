@@ -12,6 +12,9 @@ class Project(TimeStampedModel):
     def __str__(self):
         return self.title
 
+    def get_project_by_ticket(self, ticket_id):
+        return Ticket.objects.filter(pk=int(ticket_id)).first().project
+
 
 class Ticket(TimeStampedModel):
     title = models.CharField(max_length=200)

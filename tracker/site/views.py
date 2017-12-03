@@ -12,7 +12,11 @@ class ProjectContextMixin(object):
 
     def get_project(self):
         if not self.project:
-            self.project = get_object_or_404(Project, pk=self.kwargs['project_id'])
+
+            if 'ticket_id' in self.kwargs and 'project_id' in self.kwargs:
+                self.project = Project().get_project_by_ticket(self.kwargs['ticket_id'])
+            else:
+                self.project = get_object_or_404(Project, pk=self.kwargs['project_id'])
 
         return self.project
 
