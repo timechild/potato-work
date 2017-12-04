@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import widgets
 from django.contrib.auth import get_user_model
 
 from crispy_forms_foundation.forms import FoundationModelForm
@@ -41,8 +42,15 @@ class ProjectForm(BaseTrackerForm):
         instance.created_by = self.user
 
 
+class UserMultiple(forms.ModelMultipleChoiceField):
+
+    def label_from_instance(self, obj):
+        return obj.email
+
+
 class TicketForm(BaseTrackerForm):
-    assignees = forms.ModelMultipleChoiceField(queryset=None, required=False)
+
+    assignees = UserMultiple(queryset=None, required=False)
 
     class Meta:
         model = Ticket
@@ -51,7 +59,6 @@ class TicketForm(BaseTrackerForm):
     def __init__(self, project=None, *args, **kwargs):
         self.project = project
         super(TicketForm, self).__init__(*args, **kwargs)
-
         self.fields['assignees'].queryset = get_user_model().objects.all()
 
     def pre_save(self, instance):
