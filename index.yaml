@@ -23,6 +23,11 @@ indexes:
 - kind: site_project
   properties:
   - name: modified
+  - name: created
+
+- kind: site_project
+  properties:
+  - name: modified
     direction: desc
   - name: created
     direction: desc
@@ -40,6 +45,19 @@ indexes:
     direction: desc
   - name: created
     direction: desc
+
+- kind: site_ticket
+  properties:
+  - name: modified
+    direction: desc
+  - name: created
+    direction: desc
+
+- kind: site_ticket
+  properties:
+  - name: project_id
+  - name: modified
+  - name: created
 
 - kind: site_ticket
   properties:

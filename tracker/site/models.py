@@ -15,6 +15,20 @@ class Project(TimeStampedModel):
     def get_project_by_ticket(self, ticket_id):
         return Ticket.objects.filter(pk=int(ticket_id)).first().project
 
+    def get_ordered_project_list(self, user_id):
+
+        all_projects = Project.objects.all()
+        user_projects = [user_tickets.project for user_tickets in Ticket.objects.filter(assignees=user_id)]
+
+        oredered_list = []
+        for project in all_projects:
+            if project in user_projects:
+                oredered_list.insert(0, project)
+            else:
+                oredered_list.append(project)
+
+        return oredered_list
+
 
 class Ticket(TimeStampedModel):
     title = models.CharField(max_length=200)

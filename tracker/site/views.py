@@ -51,6 +51,14 @@ class ProjectListView(ListView):
     model = Project
     template_name = "site/project_list.html"
 
+    def get_context_data(self):
+        if self.request.user.is_authenticated():
+            oredered_list = Project().get_ordered_project_list(user_id=self.request.user.pk)
+        else:
+            oredered_list = []
+
+        return {'object_list': oredered_list}
+
 
 project_list_view = ProjectListView.as_view()
 
