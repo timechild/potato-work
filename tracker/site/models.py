@@ -41,3 +41,7 @@ class Ticket(TimeStampedModel):
 
     def __str__(self):
         return self.title
+
+    def delete_ticket(self, ticket_id):
+        ticket = Ticket.objects.get(id=ticket_id)
+        ticket.delete()

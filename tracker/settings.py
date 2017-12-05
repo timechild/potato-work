@@ -33,8 +33,8 @@ INTERNAL_IPS = (
     'localhost',
     '::1'
 )
-
-ALLOWED_HOSTS = ['0.0.0.0']
+if DEBUG:
+    ALLOWED_HOSTS = ['0.0.0.0']
 
 # Application definition
 
